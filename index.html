@@ -16,7 +16,7 @@
   @font-face{font-family:"Oswald";src:url("fonts/Oswald-VariableFont_wght.ttf") format("truetype-variations");font-weight:200 700;font-display:swap}
   *{box-sizing:border-box}
   html,body{margin:0}
-  body{background:#f4e7da;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{background:#f4e1d4;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   @keyframes mf-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   @keyframes mf-fade{from{opacity:0}to{opacity:1}}
   @media print{.mf-noprint{display:none!important}}
@@ -183,13 +183,13 @@
               </sc-for>
               <sc-for list="{{ vertexBadges }}" as="b" hint-placeholder-count="6">
                 <circle cx="{{ b.x }}" cy="{{ b.y }}" r="11" fill="#390323"></circle>
-                <text x="{{ b.x }}" y="{{ b.y }}" text-anchor="middle" dy="4" font-family="Oswald,sans-serif" font-size="12" font-weight="600" fill="#f4e7da">{{ b.label }}</text>
+                <text x="{{ b.x }}" y="{{ b.y }}" text-anchor="middle" dy="4" font-family="Oswald,sans-serif" font-size="12" font-weight="600" fill="#f4e1d4">{{ b.label }}</text>
               </sc-for>
             </svg>
             <div style="flex:1; min-width:200px; display:flex; flex-direction:column; gap:11px;">
               <sc-for list="{{ legend }}" as="d" hint-placeholder-count="6">
                 <div style="display:flex; align-items:center; gap:11px;">
-                  <span style="flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:#390323; color:#f4e7da; font-family:'Oswald',sans-serif; font-weight:600; font-size:11px; display:flex; align-items:center; justify-content:center;">{{ d.num }}</span>
+                  <span style="flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:#390323; color:#f4e1d4; font-family:'Oswald',sans-serif; font-weight:600; font-size:11px; display:flex; align-items:center; justify-content:center;">{{ d.num }}</span>
                   <span style="flex:1; font-size:13.5px; color:#3d2230; line-height:1.25;">{{ d.name }}</span>
                   <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; color:#6b1947;">{{ d.scoreLabel }}</span>
                 </div>
@@ -564,7 +564,7 @@ class Component extends DCLogic {
     try {
       const canvas = await h2c(el, {
         scale: 2,
-        backgroundColor: '#f4e7da',
+        backgroundColor: '#f4e1d4',
         useCORS: true,
         ignoreElements: n => n.classList && n.classList.contains('mf-noprint')
       });
@@ -616,7 +616,7 @@ class Component extends DCLogic {
           ? ' border:1.5px solid #390323; box-shadow:inset 0 0 0 1px #390323; background:rgba(57,3,35,.035);'
           : ' border:1.5px solid rgba(57,3,35,.14);'),
         letterStyle: baseLetter + (sel
-          ? ' background:#390323; color:#f4e7da; border:1.5px solid #390323;'
+          ? ' background:#390323; color:#f4e1d4; border:1.5px solid #390323;'
           : ' background:#fff; color:#9a6a82; border:1.5px solid rgba(57,3,35,.18);')
       };
     });
@@ -785,6 +785,34 @@ class Component extends DCLogic {
     return 'rgba(' + parseInt(m[1],16) + ',' + parseInt(m[2],16) + ',' + parseInt(m[3],16) + ',' + a + ')';
   }
 }
+</script>
+
+<script>
+// ── ResizeObserver: envia altura real para o WordPress pai ──────────────
+(function () {
+  var targetOrigin = 'https://agenciagdm.com.br';
+
+  function sendHeight() {
+    var h = document.documentElement.scrollHeight || document.body.scrollHeight;
+    try {
+      window.parent.postMessage({ type: 'mf-resize', height: h }, targetOrigin);
+    } catch (e) {}
+  }
+
+  // Envia ao carregar
+  sendHeight();
+
+  // Envia sempre que o tamanho do documento mudar (troca de tela, resultado, etc.)
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(sendHeight);
+    ro.observe(document.body);
+  } else {
+    // Fallback para browsers antigos
+    window.addEventListener('resize', sendHeight);
+    setInterval(sendHeight, 600);
+  }
+})();
+// ───────────────────────────────────────────────────────────────────────
 </script>
 </body>
 </html>
