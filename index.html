@@ -791,33 +791,39 @@ class Component extends DCLogic {
 // ── ResizeObserver: envia altura real para o WordPress pai ──────────────
 (function () {
   var targetOrigin = 'https://agenciagdm.com.br';
-  var lastHeight = 0;
+  var lastSent = 0;
+  var timer = null;
 
   function sendHeight() {
-    // Mede o elemento raiz da ferramenta, não o documento inteiro
-    // Isso evita o loop onde o iframe cresce → documento cresce → iframe cresce
-    var root = document.querySelector('#root') || document.querySelector('[data-dc-root]') || document.body.firstElementChild || document.body;
-    var h = root.getBoundingClientRect().height || root.offsetHeight;
-    if (!h || h < 100) return; // ignora medições inválidas
-    if (Math.abs(h - lastHeight) < 4) return; // ignora variações mínimas
-    lastHeight = h;
+    // #dc-root é o container gerado pelo Claude Design
+    var root = document.getElementById('dc-root') || document.body.firstElementChild || document.body;
+    // scrollHeight captura o conteúdo interno completo, mesmo que o container tenha overflow hidden
+    var h = Math.max(root.scrollHeight, root.offsetHeight) + 40; // +40px de margem de segurança
+    if (h < 200) return; // ignora medições inválidas no início do render
+    if (Math.abs(h - lastSent) < 8) return; // ignora variações insignificantes para evitar loop
+    lastSent = h;
     try {
-      window.parent.postMessage({ type: 'mf-resize', height: Math.ceil(h) }, targetOrigin);
+      window.parent.postMessage({ type: 'mf-resize', height: h }, targetOrigin);
     } catch (e) {}
   }
 
-  // Envia ao carregar e 500ms depois (aguarda render)
+  function debouncedSend() {
+    clearTimeout(timer);
+    timer = setTimeout(sendHeight, 120);
+  }
+
+  // Envia ao carregar e após o render inicial
   window.addEventListener('load', function() {
     sendHeight();
-    setTimeout(sendHeight, 500);
+    setTimeout(sendHeight, 800);
   });
 
-  // Envia sempre que o conteúdo mudar (troca de tela, resultado, etc.)
+  // Observa mudanças de tamanho — troca de tela, expansão de resultado, etc.
   if (window.ResizeObserver) {
-    var ro = new ResizeObserver(function() { setTimeout(sendHeight, 50); });
-    ro.observe(document.body.firstElementChild || document.body);
+    var ro = new ResizeObserver(debouncedSend);
+    ro.observe(document.getElementById('dc-root') || document.body);
   } else {
-    setInterval(sendHeight, 800);
+    setInterval(sendHeight, 1000);
   }
 })();
 // ───────────────────────────────────────────────────────────────────────
