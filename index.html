@@ -470,7 +470,12 @@ class Component extends DCLogic {
     return seq;
   }
 
-  start = () => this.setState({ screen: 'questions', qIndex: 0 });
+  scrollToTop = () => {
+    try { window.parent.postMessage({ type: 'mf-scroll-top' }, 'https://agenciagdm.com.br'); } catch(e) {}
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(e) {}
+  };
+
+  start = () => { this.setState({ screen: 'questions', qIndex: 0 }); this.scrollToTop(); };
 
   select = (qid, i) => {
     this.setState(s => ({ answers: { ...s.answers, [qid]: i } }), () => {
@@ -485,6 +490,7 @@ class Component extends DCLogic {
       return { screen: 'lead' };
     });
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+    this.scrollToTop();
   };
 
   prev = () => {
@@ -499,6 +505,7 @@ class Component extends DCLogic {
   submitLead = () => {
     this.setState({ screen: 'result' });
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+    this.scrollToTop();
 
     // ── RD Station integration ──────────────────────────────────────────
     // Replace the value below with your RD Station Public API Key.
@@ -550,7 +557,7 @@ class Component extends DCLogic {
     // ───────────────────────────────────────────────────────────────────
   };
 
-  restart = () => this.setState({ screen: 'intro', qIndex: 0, answers: {}, lead: { nome:'', empresa:'', cargo:'', email:'' } });
+  restart = () => { this.setState({ screen: 'intro', qIndex: 0, answers: {}, lead: { nome:'', empresa:'', cargo:'', email:'' } }); this.scrollToTop(); };
 
   resultRef = React.createRef();
 
@@ -846,6 +853,7 @@ class Component extends DCLogic {
     setInterval(sendHeight, 1000);
   }
 })();
+// ───────────────────────────────────────────────────────────────────────
 // ───────────────────────────────────────────────────────────────────────
 </script>
 </body>
