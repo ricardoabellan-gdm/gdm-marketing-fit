@@ -794,13 +794,33 @@ class Component extends DCLogic {
   var lastSent = 0;
   var timer = null;
 
+  function fixOverflow() {
+    // O Claude Design força overflow:hidden no #dc-root e seus filhos,
+    // o que impede a altura real de ser refletida no body.
+    // Removemos isso para que body.scrollHeight == body.offsetHeight (como no social media assessment).
+    var root = document.getElementById('dc-root');
+    if (root) {
+      root.style.overflow = 'visible';
+      root.style.height = 'auto';
+      root.style.minHeight = 'unset';
+      var inner = root.firstElementChild;
+      if (inner) {
+        inner.style.overflow = 'visible';
+        inner.style.height = 'auto';
+        inner.style.minHeight = 'unset';
+      }
+    }
+    document.body.style.overflow = 'visible';
+    document.body.style.height = 'auto';
+    document.documentElement.style.overflow = 'visible';
+    document.documentElement.style.height = 'auto';
+  }
+
   function sendHeight() {
-    // #dc-root é o container gerado pelo Claude Design
-    var root = document.getElementById('dc-root') || document.body.firstElementChild || document.body;
-    // scrollHeight captura o conteúdo interno completo, mesmo que o container tenha overflow hidden
-    var h = Math.max(root.scrollHeight, root.offsetHeight) + 40; // +40px de margem de segurança
-    if (h < 200) return; // ignora medições inválidas no início do render
-    if (Math.abs(h - lastSent) < 8) return; // ignora variações insignificantes para evitar loop
+    fixOverflow();
+    var h = document.body.scrollHeight || document.documentElement.scrollHeight;
+    if (h < 200) return;
+    if (Math.abs(h - lastSent) < 8) return;
     lastSent = h;
     try {
       window.parent.postMessage({ type: 'mf-resize', height: h }, targetOrigin);
@@ -809,19 +829,19 @@ class Component extends DCLogic {
 
   function debouncedSend() {
     clearTimeout(timer);
-    timer = setTimeout(sendHeight, 120);
+    timer = setTimeout(sendHeight, 150);
   }
 
-  // Envia ao carregar e após o render inicial
-  window.addEventListener('load', function() {
+  window.addEventListener('load', function () {
+    fixOverflow();
     sendHeight();
-    setTimeout(sendHeight, 800);
+    setTimeout(sendHeight, 600);
+    setTimeout(sendHeight, 1400);
   });
 
-  // Observa mudanças de tamanho — troca de tela, expansão de resultado, etc.
   if (window.ResizeObserver) {
     var ro = new ResizeObserver(debouncedSend);
-    ro.observe(document.getElementById('dc-root') || document.body);
+    ro.observe(document.body);
   } else {
     setInterval(sendHeight, 1000);
   }
