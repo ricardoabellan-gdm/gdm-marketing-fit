@@ -1,0 +1,242 @@
+
+
+Marketing Fit
+Descubra qual parceiro de marketing é ideal para o momento da sua empresa
+
+Estrutura Conceitual da Ferramenta
+Documento de validação interna, para aprovação antes do desenvolvimento
+
+Visão Geral
+O Marketing Fit é uma ferramenta de auto avaliação que permite a empresas e gestores de marketing compreenderem o momento atual da organização sob a lente do marketing e, a partir desse autoconhecimento, identificarem qual perfil de parceiro ou agência é mais adequado para o seu estágio.
+
+A premissa central é que maturidade de marketing é transitória. Uma empresa não é permanentemente imatura ou avançada: ela está em um momento específico, e esse momento determina o tipo de suporte que ela precisa. A escolha errada de parceiro, acima ou abaixo do estágio real, gera frustração, desperdício de investimento e resultados abaixo do potencial.
+
+A ferramenta cumpre três funções simultâneas:
+Diagnóstico: mapeia a maturidade da empresa em 6 dimensões de marketing.
+Orientação: indica o perfil de parceiro mais adequado para aquele momento.
+Educação: sensibiliza o decisor sobre a importância do autoconhecimento organizacional na seleção de fornecedores.
+
+Fluxo da Ferramenta
+O usuário percorre quatro etapas sequenciais:
+
+① Tela de entrada  →  Apresentação da ferramenta e convite para começar.
+② 18 perguntas  →  Organizadas em 6 blocos temáticos (dimensões). Múltipla escolha descritiva, 4 opções por pergunta.
+③ Captura de lead  →  Nome, empresa, cargo e e-mail. Aparece após as respostas, antes do resultado. Isso maximiza a conversão pelo engajamento já gerado.
+④ Resultado  →  Radar de maturidade por dimensão, perfil de parceiro recomendado, alerta de lacuna crítica (se houver) e orientações gerais.
+
+Os 5 Perfis de Parceiro
+O resultado da ferramenta aponta para um dos cinco perfis abaixo. A lógica de fit não é linear: uma empresa com score alto não necessariamente precisa do perfil mais avançado. Pode precisar de execução pura, porque já tem estratégia interna estruturada.
+
+#
+Perfil
+Essência
+Fit Típico
+0
+Consultor
+Uma pessoa. Inicia, organiza, cria hábitos. Prepara o terreno para o futuro.
+Empresa sem cultura de marketing, sem histórico com agências, sem clareza sobre o que precisa.
+1
+Agência Plug &amp; Play
+Pacotes prontos, entrega previsível, baixa fricção, pouca personalização.
+Empresa com noção básica do que quer, orçamento limitado, sem equipe interna.
+2
+Agência de Serviços
+Executa bem o que o cliente define. Flexível, mas não lidera estratégia.
+Empresa com alguma maturidade, que sabe o que pedir, mas não quer liderar estratégia.
+3
+Agência Consultiva
+Co-cria estratégia. Diagnóstico, planejamento e execução integrada.
+Empresa com estrutura interna que precisa de visão externa e execução integrada.
+4
+Agência Parceira Estratégica
+Extensão do negócio. Lidera, integra, conecta marketing a resultado.
+Empresa madura em marketing, com equipe interna, que busca um parceiro de alto nível.
+
+As 6 Dimensões de Avaliação
+Cada dimensão é avaliada por 3 perguntas de múltipla escolha descritiva (opções A a D, valendo 0 a 3 pontos), com exceção da Dimensão 2, que conta com uma pergunta condicional (P5b). Score máximo por dimensão: 9 pontos. Score máximo total: 57 pontos.
+
+Dimensão 1 — Estratégia e Planejamento
+Avalia se a empresa tem direcionamento de marketing definido, com metas, posicionamento e ciclos de revisão.
+
+P1. Como o marketing da sua empresa é planejado?
+Não existe planejamento. As ações acontecem quando surgem oportunidades ou urgências.
+Há uma noção do que fazer, mas sem método, documento ou ciclo definido.
+Existe um planejamento básico, com calendário e algumas metas, mas revisado raramente.
+O marketing é planejado com metas, ciclos de revisão e alinhamento com objetivos do negócio.
+
+P2. Sua empresa tem posicionamento de marca definido?
+Nunca paramos para pensar nisso formalmente.
+Temos uma ideia geral, mas não está documentada nem é usada de forma consistente.
+Temos posicionamento definido, mas ele não guia todas as decisões de comunicação.
+Sim, está documentado e é referência para toda comunicação da empresa.
+
+P3. Como sua empresa lida com sazonalidade e oportunidades de mercado?
+Reagimos quando algo acontece, sem antecipação.
+Sabemos que existem datas e momentos importantes, mas raramente nos preparamos com antecedência.
+Antecipamos algumas oportunidades, mas nem sempre com o planejamento necessário.
+Temos calendário estruturado e nos preparamos com antecedência para os principais momentos.
+
+Dimensão 2 — Estrutura e Equipe Interna
+Avalia se existe time de marketing, quem decide, qual o nível de dedicação e se o responsável tem autonomia real sobre estratégia e recursos.
+
+P4. Quem cuida do marketing na sua empresa hoje?
+Ninguém formalmente. O dono ou algum colaborador faz quando dá.
+Alguém foi designado para isso, mas sem formação ou dedicação exclusiva.
+Temos um profissional de marketing, mas ele acumula outras funções.
+Temos um gestor ou time dedicado, com autonomia e papéis bem definidos.
+
+P5. Quem tem poder de decisão sobre as prioridades e o orçamento de marketing?
+O dono ou um gestor sem formação em marketing. As decisões são intuitivas.
+Há um responsável de marketing, mas as decisões finais de investimento ficam com outra área ou com o dono.
+O responsável de marketing influencia as decisões, mas ainda enfrenta revisões frequentes de quem não acompanha o dia a dia.
+O responsável de marketing tem autonomia real: define prioridades e aloca o orçamento com independência.
+
+P5b. O profissional de marketing tem autonomia para definir prioridades e alocar o orçamento?  (pergunta condicional — exibida apenas quando P5 = opções C ou D)
+Não. As decisões de investimento ficam com o dono ou outra área, sem critério de marketing.
+Tem autonomia sobre o operacional, mas investimentos maiores dependem de aprovação de quem não acompanha o marketing de perto.
+Tem autonomia razoável, mas ainda enfrenta resistência ou revisões frequentes nas decisões.
+Sim. Tem autonomia real sobre estratégia e recursos, com respaldo da liderança.
+
+P6. Como sua empresa gerencia a relação com fornecedores de marketing?
+Não temos fornecedores regulares. Contratamos pontualmente quando necessário.
+Temos alguns fornecedores, mas a gestão é informal e reativa.
+Gerenciamos fornecedores com algum critério, mas sem processos bem definidos.
+Temos critérios claros de contratação, avaliação e gestão de fornecedores.
+
+Dimensão 3 — Dados e Inteligência
+Avalia se a empresa acompanha métricas, usa dados para decidir e tem ferramentas de análise.
+
+P7. Quais métricas sua empresa acompanha regularmente?
+Não acompanhamos métricas de marketing.
+Olhamos para curtidas, seguidores e visualizações, mas sem análise aprofundada.
+Acompanhamos métricas de performance (alcance, leads, tráfego), mas raramente conectamos isso a vendas.
+Temos dashboards que conectam marketing a resultados de negócio (vendas, CAC, LTV, ROI).
+
+P8. Como os dados influenciam as decisões de marketing da sua empresa?
+As decisões são tomadas por intuição ou experiência, sem base em dados.
+Usamos dados eventualmente, mas eles não são determinantes nas decisões.
+Os dados têm peso nas decisões, mas nem sempre temos as informações que precisamos.
+Dados são centrais. Nossas decisões são sistematicamente embasadas em análise.
+
+P9. Sua empresa usa alguma ferramenta de análise ou automação de marketing?
+Não usamos nenhuma ferramenta específica.
+Usamos ferramentas básicas (Google Analytics, por exemplo), mas sem explorar o potencial delas.
+Temos algumas ferramentas integradas e usamos com regularidade.
+Temos um stack de ferramentas integrado (analytics, CRM, automação) que alimenta nossas decisões.
+
+Dimensão 4 — Maturidade de Conteúdo e Canais
+Avalia presença digital, consistência de produção, identidade e integração entre canais.
+
+P10. Como é a presença digital da sua empresa hoje?
+Inexistente ou completamente desatualizada.
+Temos perfis e site, mas sem consistência ou estratégia por trás.
+Estamos presentes nos principais canais com alguma regularidade, mas sem integração entre eles.
+Temos um ecossistema de canais integrado, com papéis definidos para cada um.
+
+P11. Como é produzido o conteúdo da sua empresa?
+Não produzimos conteúdo de forma regular.
+Produzimos esporadicamente, sem linha editorial ou identidade definida.
+Temos uma identidade visual e tom de voz estabelecidos, com produção razoavelmente consistente.
+A produção é escalável, planejada e alinhada a objetivos estratégicos de cada canal.
+
+P12. Sua empresa já investe em mídia paga (anúncios)?
+Nunca investimos ou investimos de forma muito esporádica e sem critério.
+Impulsionamos publicações eventualmente, mas sem estratégia ou acompanhamento de resultado.
+Rodamos campanhas com alguma regularidade e acompanhamos os principais indicadores.
+Gerenciamos mídia paga de forma estratégica, com segmentação, testes e otimização contínua.
+
+Dimensão 5 — Orçamento e Gestão de Investimento
+Avalia se o budget de marketing é definido, como é alocado e se há controle de retorno.
+
+P13. Como é definido o budget de marketing da sua empresa?
+Não existe budget definido. Investimos quando sobra dinheiro, quando sobra.
+Há um valor informal ou ocasional, mas sem critério de alocação.
+Temos um budget definido por ciclo, mas sem muito rigor na alocação entre canais ou iniciativas.
+O budget é definido estrategicamente, com alocação planejada e revisão periódica.
+
+P14. Sua empresa consegue medir o retorno dos investimentos em marketing?
+Não. Não sabemos se o que investimos traz resultado.
+Temos uma percepção geral, mas sem dados concretos.
+Medimos alguns indicadores de retorno, mas não de forma sistemática.
+Sim. Temos clareza sobre CAC, ROAS e ROI por canal e iniciativa.
+
+P15. Como sua empresa encararia um aumento de investimento em marketing?
+Com insegurança. Não saberíamos como aplicar nem justificar.
+Faríamos mais do que já fazemos, mas sem mudar a abordagem.
+Temos uma visão do que priorizaríamos, mas ainda há muita incerteza.
+Temos clareza sobre onde investir mais e o que esperar de retorno.
+
+Dimensão 6 — Histórico e Maturidade Relacional com Fornecedores
+Avalia o histórico com agências, a capacidade de briefar e cobrar resultados, e o que a empresa valoriza em uma parceria.
+
+P16. Qual é o histórico da sua empresa com agências de marketing?
+Nunca trabalhamos com agência. Não sabemos bem o que uma agência faz ou entrega.
+Tivemos experiências pontuais ou frustrantes. Compramos serviço, mas sem parceria real.
+Já trabalhamos bem com agências, mas a relação foi mais de fornecedor do que de parceiro.
+Temos ou já tivemos relações maduras com agências: briefings claros, cobranças estruturadas, resultados mensuráveis.
+
+P17. Quando sua empresa contrata uma agência, quem define o que precisa ser feito?
+Geralmente a agência sugere tudo. Não sabemos bem o que pedir.
+Pedimos o que parece mais urgente no momento, sem muito planejamento.
+Temos uma visão do que queremos, mas precisamos de ajuda para estruturar e priorizar.
+Chegamos com briefing estruturado, metas definidas e expectativas claras.
+
+P18. O que sua empresa mais valoriza em uma parceria com agência?
+Que alguém me explique como funciona e me ajude a dar os primeiros passos.
+Que execute bem o que está combinado, com entrega confiável e preço justo.
+Que traga ideias, questione o que fazemos e ajude a melhorar nossa estratégia.
+Que entenda profundamente o meu negócio e atue como um sócio de marketing.
+
+Lógica de Score e Resultado
+Pontuação
+Cada pergunta tem 4 opções (A a D), valendo respectivamente 0, 1, 2 e 3 pontos.
+Score máximo por dimensão: 9 pontos (3 perguntas × 3 pontos) — exceto Dimensão 2, que pode atingir 12 pontos com a P5b
+Score máximo total: 57 pontos (18 perguntas fixas + 1 condicional × 3 pontos)
+Score mínimo: 0 pontos. Quando P5b não se aplica, o score máximo é 54 pontos e as faixas são ajustadas proporcionalmente
+
+Score Geral → Perfil Indicado
+
+Score Total
+Perfil Indicado
+0 – 13
+Consultor
+14 – 25
+Agência Plug &amp; Play
+26 – 34
+Agência de Serviços
+35 – 46
+Agência Consultiva
+47 – 57
+Agência Parceira Estratégica
+
+Camada de Inteligência: Ajustes Não Lineares
+Três situações sobrescrevem ou complementam o resultado geral, adicionando nuance ao diagnóstico:
+
+Situação 1: score alto com Dimensão 2 (Equipe Interna) baixa
+Alerta: &quot;Sua maturidade estratégica está à frente da sua estrutura interna. Antes de buscar um parceiro de alto nível, pode ser necessário fortalecer a equipe interna.&quot;
+Situação 2: score geral baixo com P18 opção D
+Alerta: &quot;Você sabe onde quer chegar, mas a operação ainda não está pronta para esse nível de parceria. Um passo intermediário pode acelerar sua evolução.&quot;
+Situação 3: Dimensão 3 (Dados) muito abaixo das demais
+Alerta fixo (independente do perfil): &quot;Inteligência de dados é sua principal lacuna. Qualquer parceria será limitada enquanto isso não for endereçado.&quot;
+Situação 4: profissional qualificado com autonomia limitada (P5b = A ou B)
+Alerta: &quot;Sua empresa tem competência técnica em marketing, mas a governança interna pode limitar o impacto de qualquer parceria. Uma agência vai chegar com recomendações que o seu time vai abraçar, mas que podem travar na decisão de quem controla o orçamento. Considere alinhar internamente a autonomia do marketing antes ou em paralelo à contratação.&quot;
+
+Estrutura do Resultado Exibido ao Usuário
+
+① Radar de maturidade com as 6 dimensões avaliadas
+② Perfil de parceiro recomendado e descrição do que esse perfil entrega
+③ O que esperar dessa parceria (expectativas realistas)
+④ Alerta de lacuna crítica (quando aplicável)
+⑤ O que desenvolver internamente em paralelo
+⑥ CTA neutro com orientações gerais sobre como identificar e avaliar esse perfil de fornecedor
+
+Stack Técnica Prevista
+A ferramenta seguirá o mesmo padrão técnico da Ferramenta de Maturidade de Social Media, já em operação:
+
+HTML standalone (sem frameworks ou dependências externas)
+Hospedagem via Vercel
+Embed via iframe em WordPress (quando necessário)
+PDF exportável via impressão em aba do navegador
+Integração com RD Station CRM para captura do lead
+
+Essa arquitetura garante leveza, independência de CDNs externos e facilidade de manutenção.

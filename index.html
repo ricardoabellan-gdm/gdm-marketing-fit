@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face{font-family:"Anton";src:url("fonts/Anton-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+  @font-face{font-family:"Oswald";src:url("fonts/Oswald-VariableFont_wght.ttf") format("truetype-variations");font-weight:200 700;font-display:swap}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:#f4e7da;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  @keyframes mf-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @keyframes mf-fade{from{opacity:0}to{opacity:1}}
+  @media print{.mf-noprint{display:none!important}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</helmet>
+
+<div style="--accent: {{ accentVar }}; --display-font: {{ displayFontVar }}; min-height:100vh; display:flex; flex-direction:column; align-items:center; font-family:'Inter',system-ui,sans-serif; color:#390323; padding:clamp(20px,5vw,64px) clamp(18px,5vw,40px); line-height:1.5;">
+
+  <div style="width:100%; max-width:680px;">
+
+    <!-- ============ INTRO ============ -->
+    <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
+      <div style="animation:mf-rise .5s cubic-bezier(0.2,0.7,0.2,1) both; padding-top:clamp(8px,4vh,44px);">
+        <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:#9a6a82;">Ferramenta de autoavaliação</div>
+        <h1 style="font-family:var(--display-font,'Anton'),sans-serif; font-weight:400; font-size:clamp(48px,11vw,84px); line-height:.92; letter-spacing:-.02em; text-transform:uppercase; margin:18px 0 0; color:#390323;">Marketing<br>Fit</h1>
+        <p style="font-family:'Oswald',sans-serif; font-weight:400; font-size:clamp(17px,2.6vw,21px); letter-spacing:.01em; color:#6b1947; margin:22px 0 0; max-width:32ch; line-height:1.35;">Descubra qual parceiro de marketing é ideal para o momento da sua empresa.</p>
+        <p style="font-size:16px; color:#5e3a4e; margin:24px 0 0; max-width:56ch;">Nenhuma empresa fica sempre no mesmo lugar. Cada momento pede um tipo de parceiro diferente, e é comum errar essa escolha. Este diagnóstico ajuda a entender em que ponto a sua empresa está agora.</p>
+
+        <!-- como funciona -->
+        <div style="margin-top:36px; border-top:1px solid rgba(57,3,35,.14);">
+          <div style="display:flex; gap:16px; align-items:baseline; padding:17px 0; border-bottom:1px solid rgba(57,3,35,.14);">
+            <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.08em; color:var(--accent,#f46624); flex:0 0 auto;">01</span>
+            <div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.1em; text-transform:uppercase; color:#390323;">Diagnóstico</div>
+              <div style="font-size:15px; color:#5e3a4e; margin-top:3px;">Avalia como está o seu marketing hoje em seis dimensões.</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:16px; align-items:baseline; padding:17px 0; border-bottom:1px solid rgba(57,3,35,.14);">
+            <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.08em; color:var(--accent,#f46624); flex:0 0 auto;">02</span>
+            <div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.1em; text-transform:uppercase; color:#390323;">Orientação</div>
+              <div style="font-size:15px; color:#5e3a4e; margin-top:3px;">Aponta o tipo de parceiro que combina com o seu momento.</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:16px; align-items:baseline; padding:17px 0; border-bottom:1px solid rgba(57,3,35,.14);">
+            <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.08em; color:var(--accent,#f46624); flex:0 0 auto;">03</span>
+            <div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.1em; text-transform:uppercase; color:#390323;">Clareza</div>
+              <div style="font-size:15px; color:#5e3a4e; margin-top:3px;">Mostra o que esperar dessa parceria e o que vale fortalecer por dentro.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- dimensões -->
+        <div style="margin-top:32px; background:#390323; border-radius:14px; padding:clamp(22px,4vw,30px);">
+          <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#d9b8c8; margin-bottom:18px;">As 6 dimensões avaliadas</div>
+          <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:15px 24px;">
+            <sc-for list="{{ dimensions }}" as="d" hint-placeholder-count="6">
+              <div style="display:flex; gap:11px; align-items:baseline;">
+                <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; color:#82d0cc; flex:0 0 auto;">{{ d.numLabel }}</span>
+                <span style="font-size:14.5px; line-height:1.3; color:#f3e0d3;">{{ d.name }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <button onClick="{{ start }}" style="margin-top:34px; display:inline-flex; align-items:center; gap:10px; background:var(--accent,#f46624); color:#fff; border:none; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; letter-spacing:.06em; text-transform:uppercase; padding:16px 30px; cursor:pointer; transition:transform .12s ease, filter .15s ease;" style-hover="filter:brightness(.94)" style-active="transform:scale(.98)">Começar avaliação <span style="font-size:18px; line-height:1;">→</span></button>
+        <div style="margin-top:20px; font-size:13px; color:#9a6a82; font-family:'Oswald',sans-serif; letter-spacing:.04em;">18 perguntas · 6 dimensões · cerca de 4 minutos</div>
+      </div>
+    </sc-if>
+
+    <!-- ============ QUESTIONS ============ -->
+    <sc-if value="{{ isQuestions }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:mf-fade .3s ease both;">
+        <!-- dimension progress -->
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:7px;">
+          <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent,#f46624);">Dimensão {{ dimIndex }} de 6</span>
+          <span style="font-family:'Oswald',sans-serif; font-weight:500; font-size:12px; letter-spacing:.1em; color:#9a6a82;">Pergunta {{ qNumber }} de {{ qTotal }}</span>
+        </div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:clamp(15px,2.4vw,17px); letter-spacing:.06em; text-transform:uppercase; color:#390323; margin-bottom:13px;">{{ q.dimName }}</div>
+        <div style="display:flex; gap:5px;">
+          <sc-for list="{{ dimBar }}" as="seg" hint-placeholder-count="6">
+            <div style="{{ seg.segStyle }}"><div style="{{ seg.fillStyle }}"></div></div>
+          </sc-for>
+        </div>
+
+        <h2 style="font-family:'Inter',sans-serif; font-weight:600; font-size:clamp(21px,3.4vw,27px); line-height:1.28; letter-spacing:-.01em; color:#390323; margin:34px 0 24px; text-wrap:pretty;">{{ q.text }}</h2>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <sc-for list="{{ options }}" as="opt" hint-placeholder-count="4">
+            <button onClick="{{ opt.onClick }}" style="{{ opt.style }}" style-hover="border-color:#390323">
+              <span style="{{ opt.letterStyle }}">{{ opt.letter }}</span>
+              <span style="flex:1; font-size:15.5px; line-height:1.4; color:#3d2230;">{{ opt.text }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:32px;">
+          <button onClick="{{ prev }}" style="background:none; border:none; font-family:'Oswald',sans-serif; font-weight:500; font-size:14px; letter-spacing:.06em; text-transform:uppercase; color:#6b1947; cursor:pointer; padding:10px 4px;" style-hover="color:#390323">← Voltar</button>
+          <button onClick="{{ next }}" disabled="{{ continueDisabled }}" style="{{ continueStyle }}">{{ continueLabel }}</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ LEAD ============ -->
+    <sc-if value="{{ isLead }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:mf-rise .4s cubic-bezier(0.2,0.7,0.2,1) both; padding-top:clamp(4px,4vh,40px);">
+        <div style="height:5px; width:100%; background:rgba(57,3,35,.1); border-radius:999px; overflow:hidden; margin-bottom:34px;">
+          <div style="height:100%; width:100%; background:var(--accent,#f46624); border-radius:999px;"></div>
+        </div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent,#f46624);">Avaliação concluída</div>
+        <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:clamp(28px,5vw,40px); line-height:1.05; text-transform:uppercase; letter-spacing:-.005em; color:#390323; margin:14px 0 0;">Seu diagnóstico<br>está pronto</h2>
+        <p style="font-size:16px; color:#5e3a4e; margin:18px 0 30px; max-width:48ch;">Preencha seus dados para ver o resultado completo, com o perfil de parceiro recomendado e as orientações para o seu momento.</p>
+
+        <div style="display:flex; flex-direction:column; gap:18px; background:#fff; border:1px solid rgba(57,3,35,.1); border-radius:12px; padding:clamp(22px,4vw,32px);">
+          <label style="display:flex; flex-direction:column; gap:7px;">
+            <span style="{{ labelStyle }}">Nome</span>
+            <input value="{{ lead.nome }}" onChange="{{ onNome }}" placeholder="Seu nome completo" style="{{ inputStyle }}" style-focus="border-color:var(--accent,#f46624)">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:7px;">
+            <span style="{{ labelStyle }}">Empresa</span>
+            <input value="{{ lead.empresa }}" onChange="{{ onEmpresa }}" placeholder="Nome da empresa" style="{{ inputStyle }}" style-focus="border-color:var(--accent,#f46624)">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:7px;">
+            <span style="{{ labelStyle }}">Cargo</span>
+            <input value="{{ lead.cargo }}" onChange="{{ onCargo }}" placeholder="Sua função na empresa" style="{{ inputStyle }}" style-focus="border-color:var(--accent,#f46624)">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:7px;">
+            <span style="{{ labelStyle }}">E-mail</span>
+            <input value="{{ lead.email }}" onChange="{{ onEmail }}" type="email" placeholder="nome@empresa.com.br" style="{{ inputStyle }}" style-focus="border-color:var(--accent,#f46624)">
+          </label>
+        </div>
+
+        <button onClick="{{ submitLead }}" disabled="{{ leadDisabled }}" style="{{ submitStyle }}">Acessar meu resultado →</button>
+        <div style="margin-top:14px; font-size:12.5px; color:#9a6a82; max-width:46ch;">Usamos seus dados só para enviar o diagnóstico e algumas orientações. Nada de spam.</div>
+      </div>
+    </sc-if>
+
+    <!-- ============ RESULT ============ -->
+    <sc-if value="{{ isResult }}" hint-placeholder-val="{{ false }}">
+      <div ref="{{ resultRef }}" style="animation:mf-rise .45s cubic-bezier(0.2,0.7,0.2,1) both;">
+
+        <!-- profile header -->
+        <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:#9a6a82;">Perfil recomendado</div>
+        <h1 style="font-family:var(--display-font,'Anton'),sans-serif; font-weight:400; font-size:clamp(36px,7.5vw,60px); line-height:.96; letter-spacing:-.015em; text-transform:uppercase; color:#390323; margin:12px 0 0;">{{ profile.name }}</h1>
+        <p style="font-family:'Oswald',sans-serif; font-weight:400; font-size:clamp(16px,2.6vw,19px); color:#6b1947; margin:16px 0 0; max-width:46ch; line-height:1.35;">{{ profile.tagline }}</p>
+
+        <!-- maturity ladder -->
+        <div style="display:flex; align-items:center; gap:14px; margin-top:26px;">
+          <div style="display:flex; gap:6px; flex:1;">
+            <sc-for list="{{ ladder }}" as="seg" hint-placeholder-count="5">
+              <div style="height:8px; flex:1; border-radius:999px; background:{{ seg.color }};"></div>
+            </sc-for>
+          </div>
+          <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; letter-spacing:.06em; color:#6b1947; white-space:nowrap;">{{ scorePct }}% de maturidade</span>
+        </div>
+
+        <!-- radar -->
+        <div style="background:#fff; border:1px solid rgba(57,3,35,.1); border-radius:14px; padding:clamp(20px,4vw,30px); margin-top:30px;">
+          <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#9a6a82; margin-bottom:8px;">Radar de maturidade</div>
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:clamp(16px,4vw,32px);">
+            <svg viewBox="0 0 320 320" style="width:min(280px,100%); flex:0 0 auto; margin:0 auto; overflow:visible;">
+              <sc-for list="{{ rings }}" as="ring" hint-placeholder-count="4">
+                <polygon points="{{ ring }}" fill="none" stroke="rgba(57,3,35,.12)" stroke-width="1"></polygon>
+              </sc-for>
+              <sc-for list="{{ axisLines }}" as="ln" hint-placeholder-count="6">
+                <line x1="{{ cx }}" y1="{{ cy }}" x2="{{ ln.x2 }}" y2="{{ ln.y2 }}" stroke="rgba(57,3,35,.12)" stroke-width="1"></line>
+              </sc-for>
+              <polygon points="{{ dataPoly }}" fill="{{ radarFill }}" stroke="var(--accent,#f46624)" stroke-width="2" stroke-linejoin="round"></polygon>
+              <sc-for list="{{ dataDots }}" as="dot" hint-placeholder-count="6">
+                <circle cx="{{ dot.x }}" cy="{{ dot.y }}" r="3.5" fill="var(--accent,#f46624)"></circle>
+              </sc-for>
+              <sc-for list="{{ vertexBadges }}" as="b" hint-placeholder-count="6">
+                <circle cx="{{ b.x }}" cy="{{ b.y }}" r="11" fill="#390323"></circle>
+                <text x="{{ b.x }}" y="{{ b.y }}" text-anchor="middle" dy="4" font-family="Oswald,sans-serif" font-size="12" font-weight="600" fill="#f4e7da">{{ b.label }}</text>
+              </sc-for>
+            </svg>
+            <div style="flex:1; min-width:200px; display:flex; flex-direction:column; gap:11px;">
+              <sc-for list="{{ legend }}" as="d" hint-placeholder-count="6">
+                <div style="display:flex; align-items:center; gap:11px;">
+                  <span style="flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:#390323; color:#f4e7da; font-family:'Oswald',sans-serif; font-weight:600; font-size:11px; display:flex; align-items:center; justify-content:center;">{{ d.num }}</span>
+                  <span style="flex:1; font-size:13.5px; color:#3d2230; line-height:1.25;">{{ d.name }}</span>
+                  <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; color:#6b1947;">{{ d.scoreLabel }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <!-- alerts -->
+        <sc-if value="{{ hasAlerts }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:14px; margin-top:24px;">
+            <sc-for list="{{ alerts }}" as="al" hint-placeholder-count="1">
+              <div style="background:rgba(244,102,36,.07); border:1px solid rgba(244,102,36,.28); border-left:4px solid #f46624; border-radius:10px; padding:18px 20px;">
+                <div style="display:flex; align-items:center; gap:9px; margin-bottom:7px;">
+                  <span style="width:20px; height:20px; border-radius:50%; background:#f46624; color:#fff; font-family:'Oswald',sans-serif; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center;">!</span>
+                  <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#390323;">{{ al.title }}</span>
+                </div>
+                <p style="font-size:14.5px; line-height:1.5; color:#3d2230; margin:0;">{{ al.text }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- what to expect -->
+        <div style="margin-top:32px;">
+          <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#9a6a82; margin-bottom:14px;">O que esperar dessa parceria</div>
+          <div style="display:flex; flex-direction:column; gap:11px;">
+            <sc-for list="{{ profile.entrega }}" as="item" hint-placeholder-count="3">
+              <div style="display:flex; gap:12px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:7px; height:7px; margin-top:8px; background:var(--accent,#f46624); border-radius:2px;"></span>
+                <span style="font-size:15.5px; line-height:1.5; color:#3d2230;">{{ item }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- develop internally -->
+        <div style="margin-top:30px; background:#fbf3eb; border:1px solid rgba(57,3,35,.1); border-radius:14px; padding:clamp(20px,4vw,28px);">
+          <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#9a6a82; margin-bottom:14px;">O que vale fortalecer por dentro</div>
+          <div style="display:flex; flex-direction:column; gap:11px;">
+            <sc-for list="{{ profile.desenvolver }}" as="item" hint-placeholder-count="2">
+              <div style="display:flex; gap:12px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:7px; height:7px; margin-top:8px; background:#390323; border-radius:2px;"></span>
+                <span style="font-size:15.5px; line-height:1.5; color:#3d2230;">{{ item }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- orientations -->
+        <div style="margin-top:30px;">
+          <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#9a6a82; margin-bottom:12px;">Como avaliar esse parceiro</div>
+          <p style="font-size:15.5px; line-height:1.6; color:#3d2230; margin:0; max-width:60ch;">{{ profile.orientacoes }}</p>
+        </div>
+
+        <!-- reference: all 5 profiles -->
+        <div style="margin-top:40px; padding-top:32px; border-top:1px solid rgba(57,3,35,.1);">
+          <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#9a6a82; margin-bottom:8px;">Os cinco perfis de parceiro</div>
+          <p style="font-size:14.5px; color:#5e3a4e; margin:0 0 18px; max-width:58ch;">Os perfis estão em ordem, do mais inicial ao mais avançado. A sua recomendação está destacada.</p>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <sc-for list="{{ compareProfiles }}" as="p" hint-placeholder-count="5">
+              <div style="{{ p.cardStyle }}">
+                <span style="{{ p.numStyle }}">{{ p.numLabel }}</span>
+                <div style="flex:1;">
+                  <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
+                    <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:.04em; text-transform:uppercase; color:#390323;">{{ p.name }}</span>
+                    <sc-if value="{{ p.isRec }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:var(--accent,#f46624); padding:3px 9px; border-radius:999px;">Sua recomendação</span>
+                    </sc-if>
+                  </div>
+                  <div style="font-size:14px; line-height:1.45; color:#3d2230; margin-top:6px;">{{ p.essencia }}</div>
+                  <div style="font-size:13px; line-height:1.45; color:#6b1947; margin-top:5px;"><span style="font-family:'Oswald',sans-serif; font-weight:600; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#9a6a82;">Para quem · </span>{{ p.fit }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- footer actions -->
+        <div class="mf-noprint" style="display:flex; flex-wrap:wrap; gap:14px; margin-top:40px; padding-top:26px; border-top:1px solid rgba(57,3,35,.1);">
+          <button onClick="{{ doPrint }}" style="background:var(--accent,#f46624); color:#fff; border:none; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.06em; text-transform:uppercase; padding:14px 26px; cursor:pointer;" style-hover="filter:brightness(.94)">Baixar diagnóstico (PDF)</button>
+          <button onClick="{{ restart }}" style="background:none; border:1.5px solid rgba(57,3,35,.25); color:#390323; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.06em; text-transform:uppercase; padding:14px 26px; cursor:pointer;" style-hover="border-color:#390323">Refazer avaliação</button>
+        </div>
+
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#f46624&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aparência&quot;,&quot;options&quot;:[&quot;#f46624&quot;,&quot;#390323&quot;,&quot;#82d0cc&quot;,&quot;#f480a8&quot;]},&quot;displayFont&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Anton&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aparência&quot;,&quot;options&quot;:[&quot;Anton&quot;,&quot;Oswald&quot;]},&quot;autoAvancar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;}}">
+class Component extends DCLogic {
+  state = {
+    screen: 'intro',
+    qIndex: 0,
+    answers: {},
+    lead: { nome: '', empresa: '', cargo: '', email: '' }
+  };
+
+  dimMeta = {
+    1: 'Estratégia e Planejamento',
+    2: 'Estrutura e Equipe Interna',
+    3: 'Dados e Inteligência',
+    4: 'Maturidade de Conteúdo e Canais',
+    5: 'Orçamento e Investimento',
+    6: 'Histórico com Fornecedores'
+  };
+
+  base = [
+    { id:'P1', dim:1, text:'Como o marketing da sua empresa é planejado?', options:[
+      'Não existe planejamento. As ações acontecem quando surgem oportunidades ou urgências.',
+      'Há uma noção do que fazer, mas sem método, documento ou ciclo definido.',
+      'Existe um planejamento básico, com calendário e algumas metas, mas revisado raramente.',
+      'O marketing é planejado com metas, ciclos de revisão e alinhamento com objetivos do negócio.'] },
+    { id:'P2', dim:1, text:'Sua empresa tem posicionamento de marca definido?', options:[
+      'Nunca paramos para pensar nisso formalmente.',
+      'Temos uma ideia geral, mas não está documentada nem é usada de forma consistente.',
+      'Temos posicionamento definido, mas ele não guia todas as decisões de comunicação.',
+      'Sim, está documentado e é referência para toda comunicação da empresa.'] },
+    { id:'P3', dim:1, text:'Como sua empresa lida com sazonalidade e oportunidades de mercado?', options:[
+      'Reagimos quando algo acontece, sem antecipação.',
+      'Sabemos que existem datas e momentos importantes, mas raramente nos preparamos com antecedência.',
+      'Antecipamos algumas oportunidades, mas nem sempre com o planejamento necessário.',
+      'Temos calendário estruturado e nos preparamos com antecedência para os principais momentos.'] },
+    { id:'P4', dim:2, text:'Quem cuida do marketing na sua empresa hoje?', options:[
+      'Ninguém formalmente. O dono ou algum colaborador faz quando dá.',
+      'Alguém foi designado para isso, mas sem formação ou dedicação exclusiva.',
+      'Temos um profissional de marketing, mas ele acumula outras funções.',
+      'Temos um gestor ou time dedicado, com autonomia e papéis bem definidos.'] },
+    { id:'P5', dim:2, text:'Quem tem poder de decisão sobre as prioridades e o orçamento de marketing?', options:[
+      'O dono ou um gestor sem formação em marketing. As decisões são intuitivas.',
+      'Há um responsável de marketing, mas as decisões finais de investimento ficam com outra área ou com o dono.',
+      'O responsável de marketing influencia as decisões, mas ainda enfrenta revisões frequentes de quem não acompanha o dia a dia.',
+      'O responsável de marketing tem autonomia real: define prioridades e aloca o orçamento com independência.'] },
+    { id:'P6', dim:2, text:'Como sua empresa gerencia a relação com fornecedores de marketing?', options:[
+      'Não temos fornecedores regulares. Contratamos pontualmente quando necessário.',
+      'Temos alguns fornecedores, mas a gestão é informal e reativa.',
+      'Gerenciamos fornecedores com algum critério, mas sem processos bem definidos.',
+      'Temos critérios claros de contratação, avaliação e gestão de fornecedores.'] },
+    { id:'P7', dim:3, text:'Quais métricas sua empresa acompanha regularmente?', options:[
+      'Não acompanhamos métricas de marketing.',
+      'Olhamos para curtidas, seguidores e visualizações, mas sem análise aprofundada.',
+      'Acompanhamos métricas de performance (alcance, leads, tráfego), mas raramente conectamos isso a vendas.',
+      'Temos dashboards que conectam marketing a resultados de negócio (vendas, CAC, LTV, ROI).'] },
+    { id:'P8', dim:3, text:'Como os dados influenciam as decisões de marketing da sua empresa?', options:[
+      'As decisões são tomadas por intuição ou experiência, sem base em dados.',
+      'Usamos dados eventualmente, mas eles não são determinantes nas decisões.',
+      'Os dados têm peso nas decisões, mas nem sempre temos as informações que precisamos.',
+      'Dados são centrais. Nossas decisões são sistematicamente embasadas em análise.'] },
+    { id:'P9', dim:3, text:'Sua empresa usa alguma ferramenta de análise ou automação de marketing?', options:[
+      'Não usamos nenhuma ferramenta específica.',
+      'Usamos ferramentas básicas (Google Analytics, por exemplo), mas sem explorar o potencial delas.',
+      'Temos algumas ferramentas integradas e usamos com regularidade.',
+      'Temos um stack de ferramentas integrado (analytics, CRM, automação) que alimenta nossas decisões.'] },
+    { id:'P10', dim:4, text:'Como é a presença digital da sua empresa hoje?', options:[
+      'Inexistente ou completamente desatualizada.',
+      'Temos perfis e site, mas sem consistência ou estratégia por trás.',
+      'Estamos presentes nos principais canais com alguma regularidade, mas sem integração entre eles.',
+      'Temos um ecossistema de canais integrado, com papéis definidos para cada um.'] },
+    { id:'P11', dim:4, text:'Como é produzido o conteúdo da sua empresa?', options:[
+      'Não produzimos conteúdo de forma regular.',
+      'Produzimos esporadicamente, sem linha editorial ou identidade definida.',
+      'Temos uma identidade visual e tom de voz estabelecidos, com produção razoavelmente consistente.',
+      'A produção é escalável, planejada e alinhada a objetivos estratégicos de cada canal.'] },
+    { id:'P12', dim:4, text:'Sua empresa já investe em mídia paga (anúncios)?', options:[
+      'Nunca investimos ou investimos de forma muito esporádica e sem critério.',
+      'Impulsionamos publicações eventualmente, mas sem estratégia ou acompanhamento de resultado.',
+      'Rodamos campanhas com alguma regularidade e acompanhamos os principais indicadores.',
+      'Gerenciamos mídia paga de forma estratégica, com segmentação, testes e otimização contínua.'] },
+    { id:'P13', dim:5, text:'Como é definido o budget de marketing da sua empresa?', options:[
+      'Não existe budget definido. Investimos quando sobra dinheiro.',
+      'Há um valor informal ou ocasional, mas sem critério de alocação.',
+      'Temos um budget definido por ciclo, mas sem muito rigor na alocação entre canais ou iniciativas.',
+      'O budget é definido estrategicamente, com alocação planejada e revisão periódica.'] },
+    { id:'P14', dim:5, text:'Sua empresa consegue medir o retorno dos investimentos em marketing?', options:[
+      'Não. Não sabemos se o que investimos traz resultado.',
+      'Temos uma percepção geral, mas sem dados concretos.',
+      'Medimos alguns indicadores de retorno, mas não de forma sistemática.',
+      'Sim. Temos clareza sobre CAC, ROAS e ROI por canal e iniciativa.'] },
+    { id:'P15', dim:5, text:'Como sua empresa encararia um aumento de investimento em marketing?', options:[
+      'Com insegurança. Não saberíamos como aplicar nem justificar.',
+      'Faríamos mais do que já fazemos, mas sem mudar a abordagem.',
+      'Temos uma visão do que priorizaríamos, mas ainda há muita incerteza.',
+      'Temos clareza sobre onde investir mais e o que esperar de retorno.'] },
+    { id:'P16', dim:6, text:'Qual é o histórico da sua empresa com agências de marketing?', options:[
+      'Nunca trabalhamos com agência. Não sabemos bem o que uma agência faz ou entrega.',
+      'Tivemos experiências pontuais ou frustrantes. Compramos serviço, mas sem parceria real.',
+      'Já trabalhamos bem com agências, mas a relação foi mais de fornecedor do que de parceiro.',
+      'Temos ou já tivemos relações maduras com agências: briefings claros, cobranças estruturadas, resultados mensuráveis.'] },
+    { id:'P17', dim:6, text:'Quando sua empresa contrata uma agência, quem define o que precisa ser feito?', options:[
+      'Geralmente a agência sugere tudo. Não sabemos bem o que pedir.',
+      'Pedimos o que parece mais urgente no momento, sem muito planejamento.',
+      'Temos uma visão do que queremos, mas precisamos de ajuda para estruturar e priorizar.',
+      'Chegamos com briefing estruturado, metas definidas e expectativas claras.'] },
+    { id:'P18', dim:6, text:'O que sua empresa mais valoriza em uma parceria com agência?', options:[
+      'Que alguém me explique como funciona e me ajude a dar os primeiros passos.',
+      'Que execute bem o que está combinado, com entrega confiável e preço justo.',
+      'Que traga ideias, questione o que fazemos e ajude a melhorar nossa estratégia.',
+      'Que entenda profundamente o meu negócio e atue como um sócio de marketing.'] }
+  ];
+
+  p5b = { id:'P5b', dim:2, text:'O profissional de marketing tem autonomia para definir prioridades e alocar o orçamento?', options:[
+    'Não. As decisões de investimento ficam com o dono ou outra área, sem critério de marketing.',
+    'Tem autonomia sobre o operacional, mas investimentos maiores dependem de aprovação de quem não acompanha o marketing de perto.',
+    'Tem autonomia razoável, mas ainda enfrenta resistência ou revisões frequentes nas decisões.',
+    'Sim. Tem autonomia real sobre estratégia e recursos, com respaldo da liderança.'] };
+
+  profiles = [
+    { name:'Consultor',
+      tagline:'Uma pessoa para começar a organizar o marketing e criar os primeiros hábitos.',
+      entrega:[
+        'Coloca ordem nos primeiros processos e rotinas de marketing.',
+        'Ajuda a definir prioridades e um ponto de partida claro.',
+        'Deixa um método para a empresa ganhar autonomia.'],
+      desenvolver:[
+        'Uma cultura de marketing dentro de casa e constância para tocar as ações.',
+        'Clareza sobre quais objetivos do negócio o marketing precisa atender.'],
+      orientacoes:'Procure alguém com visão generalista e jeito de ensinar. O que importa é a capacidade de organizar o básico e deixar a empresa andar com as próprias pernas, não a promessa de grandes campanhas.' },
+    { name:'Agência Plug & Play',
+      tagline:'Pacotes prontos, entrega previsível e pouca burocracia para começar a rodar.',
+      entrega:[
+        'Execução padronizada e recorrente de social, conteúdo e anúncios básicos.',
+        'Previsibilidade no que chega e no quanto custa.',
+        'Começo rápido, sem diagnóstico demorado.'],
+      desenvolver:[
+        'Clareza sobre o que você espera de cada entrega.',
+        'Acompanhamento mínimo dos resultados, para evoluir o escopo com o tempo.'],
+      orientacoes:'Olhe os pacotes oferecidos, os prazos e o que entra e o que não entra em cada um. O risco é a pouca personalização, então confira se o pacote cobre o essencial do seu momento.' },
+    { name:'Agência de Serviços',
+      tagline:'Executa bem o que você pedir. É flexível, mas não assume a estratégia.',
+      entrega:[
+        'Execução de qualidade, sob demanda e seguindo o seu direcionamento.',
+        'Escopo que se ajusta conforme as suas prioridades mudam.',
+        'Boa mão técnica nos canais que você precisar.'],
+      desenvolver:[
+        'A capacidade de passar um bom briefing e priorizar o que importa.',
+        'A visão estratégica que vai guiar essa execução.'],
+      orientacoes:'Procure consistência técnica e bom relacionamento no dia a dia. A estratégia continua sendo sua, então revise a clareza dos seus briefings antes de cobrar resultados de negócio.' },
+    { name:'Agência Consultiva',
+      tagline:'Constrói a estratégia junto com você, do diagnóstico ao planejamento e à execução.',
+      entrega:[
+        'Diagnóstico e planejamento feitos lado a lado com o seu time.',
+        'Execução integrada e conectada à estratégia que vocês definiram.',
+        'Um olhar de fora que questiona e melhora as decisões.'],
+      desenvolver:[
+        'Estrutura interna para absorver e dar continuidade ao que for decidido.',
+        'Tempo da liderança para participar do processo de perto.'],
+      orientacoes:'Repare na profundidade do diagnóstico inicial e na forma de trabalhar em conjunto. O encaixe depende da sua abertura para construir junto. Se você quer apenas alguém para executar, não é aqui.' },
+    { name:'Agência Parceira Estratégica',
+      tagline:'Funciona como uma extensão do seu negócio. Lidera, integra e liga o marketing ao resultado.',
+      entrega:[
+        'Liderança da estratégia e integração entre os canais e as áreas.',
+        'Ligação direta entre o que o marketing faz e o resultado do negócio.',
+        'Uma relação de longo prazo, mais parecida com uma sociedade.'],
+      desenvolver:[
+        'Uma governança que dê autonomia real ao marketing.',
+        'Maturidade de dados para sustentar decisões mais ousadas.'],
+      orientacoes:'Peça cases de impacto no negócio, não só de comunicação. Essa parceria exige maturidade dos dois lados: senioridade do parceiro e abertura da sua liderança.' }
+  ];
+
+  profileSummary = [
+    { name:'Consultor', essencia:'Uma pessoa para começar a organizar o marketing e criar os primeiros hábitos.', fit:'Empresas sem cultura de marketing, sem histórico com agências e ainda sem clareza do que precisam.' },
+    { name:'Agência Plug & Play', essencia:'Pacotes prontos, entrega previsível e pouca personalização.', fit:'Empresas que já têm uma noção do que querem, com orçamento limitado e sem equipe interna.' },
+    { name:'Agência de Serviços', essencia:'Executa bem o que o cliente pede. É flexível, mas não assume a estratégia.', fit:'Empresas que sabem o que pedir, mas preferem não liderar a estratégia.' },
+    { name:'Agência Consultiva', essencia:'Constrói a estratégia junto com você, do diagnóstico à execução.', fit:'Empresas que já têm estrutura interna e precisam de um olhar de fora com execução integrada.' },
+    { name:'Agência Parceira Estratégica', essencia:'Uma extensão do negócio: lidera, integra e liga o marketing ao resultado.', fit:'Empresas maduras em marketing, com equipe interna, que querem um parceiro de alto nível.' }
+  ];
+
+  getActive() {
+    const seq = [];
+    for (const q of this.base) {
+      seq.push(q);
+      if (q.id === 'P5') {
+        const a = this.state.answers['P5'];
+        if (a === 2 || a === 3) seq.push(this.p5b);
+      }
+    }
+    return seq;
+  }
+
+  start = () => this.setState({ screen: 'questions', qIndex: 0 });
+
+  select = (qid, i) => {
+    this.setState(s => ({ answers: { ...s.answers, [qid]: i } }), () => {
+      if (this.props.autoAvancar) setTimeout(() => this.next(), 240);
+    });
+  };
+
+  next = () => {
+    const act = this.getActive();
+    this.setState(s => {
+      if (s.qIndex < act.length - 1) return { qIndex: s.qIndex + 1 };
+      return { screen: 'lead' };
+    });
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  };
+
+  prev = () => {
+    this.setState(s => {
+      if (s.qIndex > 0) return { qIndex: s.qIndex - 1 };
+      return { screen: 'intro' };
+    });
+  };
+
+  setLead = (k, v) => this.setState(s => ({ lead: { ...s.lead, [k]: v } }));
+
+  submitLead = () => {
+    this.setState({ screen: 'result' });
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+
+    // ── RD Station integration ──────────────────────────────────────────
+    // Replace the value below with your RD Station Public API Key.
+    // Found at: RD Station → Configurações → Integrações → API do RD Station
+    const RD_PUBLIC_KEY = 'SUA_CHAVE_PUBLICA_AQUI';
+
+    const { lead, answers } = this.state;
+
+    // Build a score summary to send as extra context in the conversion
+    const dimScores = {};
+    let total = 0;
+    Object.entries(answers).forEach(([qi, val]) => {
+      const q = this.questions[Number(qi)];
+      if (!q) return;
+      const pts = Number(val) || 0;
+      dimScores[q.dim] = (dimScores[q.dim] || 0) + pts;
+      total += pts;
+    });
+    const maxPossible = Object.keys(dimScores).length > 0 ? Object.values(dimScores).reduce((a, b) => a + b, 0) : total;
+    const pct = maxPossible > 0 ? (total / (Object.keys(answers).length * 3)) * 100 : 0;
+    let profileName = 'Consultor';
+    if (pct > 22.8 && pct <= 43.9) profileName = 'Agência Plug & Play';
+    else if (pct > 43.9 && pct <= 59.6) profileName = 'Agência de Serviços';
+    else if (pct > 59.6 && pct <= 80.7) profileName = 'Agência Consultiva';
+    else if (pct > 80.7) profileName = 'Agência Parceira Estratégica';
+
+    const payload = {
+      event_type: 'CONVERSION',
+      event_family: 'CDP',
+      payload: {
+        conversion_identifier: 'marketing-fit-assessment',
+        name: lead.nome,
+        email: lead.email,
+        job_title: lead.cargo,
+        company_name: lead.empresa,
+        cf_perfil_recomendado: profileName,
+        cf_score_maturidade: Math.round(pct) + '%',
+        cf_ferramenta: 'Marketing Fit'
+      }
+    };
+
+    fetch('https://api.rd.services/platform/conversions?api_key=' + RD_PUBLIC_KEY, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {
+      // Silently fail — the user experience is never interrupted
+    });
+    // ───────────────────────────────────────────────────────────────────
+  };
+
+  restart = () => this.setState({ screen: 'intro', qIndex: 0, answers: {}, lead: { nome:'', empresa:'', cargo:'', email:'' } });
+
+  resultRef = React.createRef();
+
+  doPrint = async () => {
+    const el = this.resultRef.current;
+    if (!el || this._pdfBusy) return;
+    const h2c = window.html2canvas;
+    const jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
+    if (!h2c || !jsPDFCtor) return;
+    this._pdfBusy = true;
+    try {
+      const canvas = await h2c(el, {
+        scale: 2,
+        backgroundColor: '#f4e7da',
+        useCORS: true,
+        ignoreElements: n => n.classList && n.classList.contains('mf-noprint')
+      });
+      const pad = 48;
+      const w = canvas.width / 2, h = canvas.height / 2;
+      const pdf = new jsPDFCtor({
+        unit: 'pt',
+        format: [w + pad * 2, h + pad * 2],
+        orientation: w > h ? 'landscape' : 'portrait',
+        compress: true
+      });
+      pdf.setFillColor(244, 231, 218);
+      pdf.rect(0, 0, w + pad * 2, h + pad * 2, 'F');
+      pdf.addImage(canvas.toDataURL('image/jpeg', 0.94), 'JPEG', pad, pad, w, h);
+      const empresa = (this.state.lead.empresa || 'diagnostico').trim()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase();
+      pdf.save('marketing-fit-' + (empresa || 'diagnostico') + '.pdf');
+    } catch (e) {
+      console.error(e);
+    } finally {
+      this._pdfBusy = false;
+    }
+  };
+
+  pt(level, i, cx, cy, R) {
+    const a = (-90 + i * 60) * Math.PI / 180;
+    return [cx + Math.cos(a) * R * level, cy + Math.sin(a) * R * level];
+  }
+
+  renderVals() {
+    const accent = this.props.accentColor || '#f46624';
+    const displayFont = (this.props.displayFont === 'Oswald') ? "'Oswald'" : "'Anton'";
+    const s = this.state;
+    const active = this.getActive();
+    const q = active[Math.min(s.qIndex, active.length - 1)] || this.base[0];
+
+    // ---- option cards for current question ----
+    const letters = ['A', 'B', 'C', 'D'];
+    const baseOpt = 'display:flex; gap:14px; align-items:center; padding:15px 17px; border-radius:10px; background:#fff; cursor:pointer; width:100%; text-align:left; transition:border-color .15s ease, background .15s ease; font-family:inherit;';
+    const baseLetter = 'flex:0 0 auto; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:\'Oswald\',sans-serif; font-weight:600; font-size:14px; transition:all .15s ease;';
+    const options = q.options.map((text, i) => {
+      const sel = s.answers[q.id] === i;
+      return {
+        letter: letters[i],
+        text,
+        onClick: () => this.select(q.id, i),
+        style: baseOpt + (sel
+          ? ' border:1.5px solid #390323; box-shadow:inset 0 0 0 1px #390323; background:rgba(57,3,35,.035);'
+          : ' border:1.5px solid rgba(57,3,35,.14);'),
+        letterStyle: baseLetter + (sel
+          ? ' background:#390323; color:#f4e7da; border:1.5px solid #390323;'
+          : ' background:#fff; color:#9a6a82; border:1.5px solid rgba(57,3,35,.18);')
+      };
+    });
+
+    const answered = s.answers[q.id] !== undefined;
+    const isLast = s.qIndex >= active.length - 1;
+    const btnBase = 'border:none; border-radius:6px; font-family:\'Oswald\',sans-serif; font-weight:600; font-size:15px; letter-spacing:.06em; text-transform:uppercase; padding:14px 28px; transition:filter .15s ease, transform .1s ease;';
+    const continueStyle = btnBase + (answered
+      ? ' background:' + accent + '; color:#fff; cursor:pointer;'
+      : ' background:rgba(57,3,35,.12); color:rgba(57,3,35,.4); cursor:not-allowed;');
+
+    // ---- lead ----
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.lead.email.trim());
+    const leadValid = s.lead.nome.trim() && s.lead.empresa.trim() && s.lead.cargo.trim() && emailOk;
+    const labelStyle = "font-family:'Oswald',sans-serif; font-weight:500; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#6b1947;";
+    const inputStyle = "font-family:'Inter',sans-serif; font-size:16px; color:#390323; background:#fff; border:1.5px solid rgba(57,3,35,.18); border-radius:8px; padding:13px 15px; width:100%; outline:none; transition:border-color .15s ease;";
+    const submitStyle = 'margin-top:26px; width:100%; ' + btnBase + ' padding:16px 28px; ' + (leadValid
+      ? ' background:' + accent + '; color:#fff; cursor:pointer;'
+      : ' background:rgba(57,3,35,.12); color:rgba(57,3,35,.4); cursor:not-allowed;');
+
+    // ---- scoring ----
+    const dimScore = {1:0,2:0,3:0,4:0,5:0,6:0};
+    const dimMax = {1:0,2:0,3:0,4:0,5:0,6:0};
+    let total = 0;
+    for (const item of active) {
+      const v = s.answers[item.id] || 0;
+      dimScore[item.dim] += v;
+      dimMax[item.dim] += 3;
+      total += v;
+    }
+    const maxTotal = active.length * 3;
+    const pct = maxTotal ? (total / maxTotal) * 100 : 0;
+    const scorePct = Math.round(pct);
+
+    let profileIndex;
+    if (pct <= 22.8) profileIndex = 0;
+    else if (pct <= 43.9) profileIndex = 1;
+    else if (pct <= 59.6) profileIndex = 2;
+    else if (pct <= 80.7) profileIndex = 3;
+    else profileIndex = 4;
+    const profile = this.profiles[profileIndex];
+
+    const ladderColors = ['#f6a8bb', '#f480a8', '#f46624', '#6b1947', '#390323'];
+    const ladder = [0,1,2,3,4].map(i => ({
+      color: i <= profileIndex ? (ladderColors[profileIndex]) : 'rgba(57,3,35,.12)'
+    }));
+
+    // normalized per dim (order 1..6)
+    const norms = [1,2,3,4,5,6].map(n => dimMax[n] ? dimScore[n] / dimMax[n] : 0);
+
+    // ---- radar geometry ----
+    const cx = 160, cy = 160, R = 110;
+    const levels = [0.25, 0.5, 0.75, 1];
+    const rings = levels.map(L =>
+      [0,1,2,3,4,5].map(i => this.pt(L, i, cx, cy, R).map(n => n.toFixed(1)).join(',')).join(' ')
+    );
+    const axisLines = [0,1,2,3,4,5].map(i => {
+      const [x, y] = this.pt(1, i, cx, cy, R);
+      return { x2: x.toFixed(1), y2: y.toFixed(1) };
+    });
+    const dataPts = norms.map((v, i) => this.pt(Math.max(v, 0.04), i, cx, cy, R));
+    const dataPoly = dataPts.map(p => p.map(n => n.toFixed(1)).join(',')).join(' ');
+    const dataDots = dataPts.map(p => ({ x: p[0].toFixed(1), y: p[1].toFixed(1) }));
+    const vertexBadges = [0,1,2,3,4,5].map(i => {
+      const [x, y] = this.pt(1.17, i, cx, cy, R);
+      return { x: x.toFixed(1), y: y.toFixed(1), label: String(i + 1) };
+    });
+    const radarFill = this._hexA(accent, 0.16);
+
+    const legend = [1,2,3,4,5,6].map(n => ({
+      num: n,
+      name: this.dimMeta[n],
+      scoreLabel: dimScore[n] + '/' + dimMax[n]
+    }));
+
+    // ---- alerts ----
+    const alerts = [];
+    const dim2Norm = norms[1];
+    const dim3Norm = norms[2];
+    const otherAvg = (norms[0] + norms[1] + norms[3] + norms[4] + norms[5]) / 5;
+    if (pct >= 70 && dim2Norm < 0.5) {
+      alerts.push({ title: 'A estrutura ainda não acompanha a estratégia', text: 'A sua estratégia está mais avançada do que a estrutura que você tem hoje. Antes de contratar um parceiro de alto nível, vale reforçar o time interno.' });
+    }
+    if (pct < 50 && s.answers['P18'] === 3) {
+      alerts.push({ title: 'A ambição está na frente da operação', text: 'Você sabe onde quer chegar, mas a operação ainda não está pronta para esse nível de parceria. Um passo intermediário tende a acelerar mais do que atrasar.' });
+    }
+    if (dim3Norm + 0.25 < otherAvg) {
+      alerts.push({ title: 'Dados são o seu ponto mais fraco', text: 'Inteligência de dados é hoje a sua maior lacuna. Enquanto isso não mudar, qualquer parceria vai trabalhar no escuro e render menos do que poderia.' });
+    }
+    const p5bAns = s.answers['P5b'];
+    if ((p5bAns === 0 || p5bAns === 1)) {
+      alerts.push({ title: 'A governança pode travar o impacto', text: 'Você tem boa competência técnica em marketing, mas a forma como as decisões são tomadas pode limitar qualquer parceria. O time compra as recomendações e elas empacam com quem controla o orçamento. Vale alinhar a autonomia do marketing antes da contratação, ou junto com ela.' });
+    }
+
+    // ---- dimension progress (journey) ----
+    const dimsOrder = [1,2,3,4,5,6];
+    const perDim = {}; dimsOrder.forEach(n => perDim[n] = { total: 0, ans: 0 });
+    for (const item of active) {
+      perDim[item.dim].total++;
+      if (s.answers[item.id] !== undefined) perDim[item.dim].ans++;
+    }
+    const dimBar = dimsOrder.map(n => {
+      const t = perDim[n].total || 1;
+      const f = perDim[n].ans / t;
+      const isCur = n === q.dim;
+      return {
+        segStyle: 'position:relative; flex:1; height:7px; border-radius:999px; background:rgba(57,3,35,.12);' + (isCur ? ' box-shadow:0 0 0 2px ' + this._hexA(accent, 0.4) + ';' : ''),
+        fillStyle: 'position:absolute; left:0; top:0; height:100%; border-radius:999px; transition:width .35s cubic-bezier(0.2,0.7,0.2,1); width:' + Math.round(f * 100) + '%; background:' + (isCur ? accent : '#390323') + ';'
+      };
+    });
+    const dimensions = dimsOrder.map(n => ({ numLabel: '0' + n, name: this.dimMeta[n] }));
+
+    // ---- reference table: all 5 profiles ----
+    const compareProfiles = this.profileSummary.map((p, i) => {
+      const isRec = i === profileIndex;
+      return {
+        name: p.name, essencia: p.essencia, fit: p.fit, isRec,
+        numLabel: String(i + 1),
+        cardStyle: 'display:flex; gap:15px; padding:16px 18px; border-radius:12px;' + (isRec
+          ? ' background:' + this._hexA(accent, 0.07) + '; border:1.5px solid ' + accent + ';'
+          : ' background:#fff; border:1px solid rgba(57,3,35,.12);'),
+        numStyle: 'flex:0 0 auto; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:Oswald,sans-serif; font-weight:600; font-size:13px;' + (isRec
+          ? ' background:' + accent + '; color:#fff;'
+          : ' background:#390323; color:#f3e0d3;')
+      };
+    });
+
+    return {
+      accentVar: accent,
+      displayFontVar: displayFont,
+      isIntro: s.screen === 'intro',
+      isQuestions: s.screen === 'questions',
+      isLead: s.screen === 'lead',
+      isResult: s.screen === 'result',
+      start: this.start, next: this.next, prev: this.prev,
+      restart: this.restart, submitLead: this.submitLead, doPrint: this.doPrint,
+      resultRef: this.resultRef,
+      // question
+      q: { text: q.text, dimName: this.dimMeta[q.dim] },
+      qNumber: s.qIndex + 1,
+      qTotal: active.length,
+      dimIndex: q.dim,
+      dimBar, dimensions,
+      options,
+      continueDisabled: answered ? null : true,
+      continueStyle,
+      continueLabel: isLast ? 'Ver meu diagnóstico →' : 'Continuar →',
+      // lead
+      lead: s.lead,
+      onNome: (e) => this.setLead('nome', e.target.value),
+      onEmpresa: (e) => this.setLead('empresa', e.target.value),
+      onCargo: (e) => this.setLead('cargo', e.target.value),
+      onEmail: (e) => this.setLead('email', e.target.value),
+      labelStyle, inputStyle, submitStyle,
+      leadDisabled: leadValid ? null : true,
+      // result
+      profile, scorePct, ladder, compareProfiles,
+      cx, cy, rings, axisLines, dataPoly, dataDots, vertexBadges, radarFill, legend,
+      alerts, hasAlerts: alerts.length > 0
+    };
+  }
+
+  _hexA(hex, a) {
+    const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (!m) return 'rgba(244,102,36,' + a + ')';
+    return 'rgba(' + parseInt(m[1],16) + ',' + parseInt(m[2],16) + ',' + parseInt(m[3],16) + ',' + a + ')';
+  }
+}
+</script>
+</body>
+</html>
