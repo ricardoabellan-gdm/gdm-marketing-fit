@@ -25,7 +25,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </helmet>
 
-<div style="--accent: {{ accentVar }}; --display-font: {{ displayFontVar }}; min-height:100vh; display:flex; flex-direction:column; align-items:center; font-family:'Inter',system-ui,sans-serif; color:#390323; padding:clamp(20px,5vw,64px) clamp(18px,5vw,40px); line-height:1.5;">
+<div style="--accent: {{ accentVar }}; --display-font: {{ displayFontVar }}; min-height:100vh; display:flex; flex-direction:column; align-items:center; font-family:'Inter',system-ui,sans-serif; color:#390323; line-height:1.5;">
 
   <div style="width:100%; max-width:680px;">
 
@@ -510,7 +510,7 @@ class Component extends DCLogic {
     // ── RD Station integration ──────────────────────────────────────────
     // Replace the value below with your RD Station Public API Key.
     // Found at: RD Station → Configurações → Integrações → API do RD Station
-    const RD_PUBLIC_KEY = 'SUA_CHAVE_PUBLICA_AQUI';
+    const RD_PUBLIC_KEY = 'b3a4dce099a01e22078669dc4c18a9b8';
 
     const { lead, answers } = this.state;
 
