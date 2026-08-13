@@ -25,13 +25,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </helmet>
 
-<div style="--accent: {{ accentVar }}; --display-font: {{ displayFontVar }}; min-height:100vh; display:flex; flex-direction:column; align-items:center; font-family:'Inter',system-ui,sans-serif; color:#390323; padding:clamp(20px,5vw,64px) clamp(18px,5vw,40px); line-height:1.5;">
+<div style="--accent: {{ accentVar }}; --display-font: {{ displayFontVar }}; min-height:100vh; display:flex; flex-direction:column; align-items:center; font-family:'Inter',system-ui,sans-serif; color:#390323; padding:clamp(16px,3vw,32px) clamp(18px,5vw,40px); line-height:1.5;">
 
   <div style="width:100%; max-width:680px;">
 
     <!-- ============ INTRO ============ -->
     <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
-      <div style="animation:mf-rise .5s cubic-bezier(0.2,0.7,0.2,1) both; padding-top:clamp(8px,4vh,44px);">
+      <div style="animation:mf-rise .5s cubic-bezier(0.2,0.7,0.2,1) both; padding-top:clamp(4px,2vh,16px);">
         <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:#9a6a82;">Ferramenta de autoavaliação</div>
         <h1 style="font-family:var(--display-font,'Anton'),sans-serif; font-weight:400; font-size:clamp(48px,11vw,84px); line-height:.92; letter-spacing:-.02em; text-transform:uppercase; margin:18px 0 0; color:#390323;">Marketing<br>Fit</h1>
         <p style="font-family:'Oswald',sans-serif; font-weight:400; font-size:clamp(17px,2.6vw,21px); letter-spacing:.01em; color:#6b1947; margin:22px 0 0; max-width:32ch; line-height:1.35;">Descubra qual parceiro de marketing é ideal para o momento da sua empresa.</p>
