@@ -547,12 +547,25 @@ class Component extends DCLogic {
       }
     };
 
-    fetch('https://api.rd.services/platform/conversions?api_key=' + RD_PUBLIC_KEY, {
+    // Endpoint 1.3 — aceita chamadas diretas do browser (sem bloqueio de CORS)
+    const rdPayload = {
+      token_rdstation: RD_PUBLIC_KEY,
+      identificador: 'marketing-fit-assessment',
+      nome: lead.nome,
+      email: lead.email,
+      cargo: lead.cargo,
+      empresa: lead.empresa,
+      cf_perfil_recomendado: profileName,
+      cf_score_maturidade: Math.round(pct) + '%',
+      cf_ferramenta: 'Marketing Fit'
+    };
+
+    fetch('https://www.rdstation.com.br/api/1.3/conversions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(rdPayload)
     }).catch(() => {
-      // Silently fail — the user experience is never interrupted
+      // Silently fail — o usuário nunca é interrompido
     });
     // ───────────────────────────────────────────────────────────────────
   };
