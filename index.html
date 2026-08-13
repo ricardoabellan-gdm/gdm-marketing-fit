@@ -514,19 +514,13 @@ class Component extends DCLogic {
 
     const { lead, answers } = this.state;
 
-    // Build a score summary to send as extra context in the conversion
-    // answers = { 'P1': 2, 'P2': 1, ... } — keyed by question id
-    const allQuestions = [...this.base, this.p5b];
-    const qMap = {};
-    allQuestions.forEach(q => { qMap[q.id] = q; });
+    // Usa a mesma lógica de scoring da tela de resultado
+    const active = this.getActive();
     let total = 0;
-    let maxPossible = 0;
-    Object.entries(answers).forEach(([qid, val]) => {
-      const q = qMap[qid];
-      if (!q) return;
-      total += Number(val) || 0;
-      maxPossible += 3;
-    });
+    for (const item of active) {
+      total += answers[item.id] || 0;
+    }
+    const maxPossible = active.length * 3;
     const pct = maxPossible > 0 ? (total / maxPossible) * 100 : 0;
     let profileName = 'Consultor';
     if (pct > 22.8 && pct <= 43.9) profileName = 'Agência Plug & Play';
