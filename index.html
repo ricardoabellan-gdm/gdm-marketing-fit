@@ -268,6 +268,28 @@
           </div>
         </div>
 
+
+        <!-- bloco GDM -->
+        <div style="margin-top:48px; padding:36px; background:rgba(57,3,35,.04); border-radius:12px; border:1px solid rgba(57,3,35,.1);">
+          <sc-if value="{{ gdmCta }}">
+            <img src="https://agenciagdm.com.br/wp-content/uploads/2025/07/Logos-gdm-2025-01-1.png" alt="GDM" style="height:36px; width:auto; display:block; margin-bottom:28px; opacity:.85;">
+            <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; color:#390323; margin-bottom:20px;">Parece que a gente tem muito a conversar.</div>
+            <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.65; color:#5e3a4e; margin:0 0 14px; max-width:56ch;">Somos uma agência de marketing digital e comunicação integrada.</p>
+            <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.65; color:#5e3a4e; margin:0 0 14px; max-width:56ch;">A gente entende que a marca está no centro de tudo. Por isso, não partimos de um canal ou de uma prática específica. Partimos do problema.</p>
+            <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.65; color:#5e3a4e; margin:0 0 14px; max-width:56ch;">Com mais de uma década de experiência em comunicação, trazemos as práticas e ferramentas certas para cada desafio e seguimos junto até o objetivo ser alcançado.</p>
+            <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.65; color:#5e3a4e; margin:0 0 28px; max-width:56ch;">Empresas no seu momento são exatamente com quem gostamos de trabalhar e trazemos os melhores resultados.</p>
+            <a href="https://agenciagdm.com.br/contato/" target="_blank" style="display:inline-block; background:#390323; color:#f4e1d4; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.08em; text-transform:uppercase; padding:14px 28px; border-radius:6px; text-decoration:none;">Vamos bater um papo?</a>
+          </sc-if>
+          <sc-if value="{{ !gdmCta }}">
+            <img src="https://agenciagdm.com.br/wp-content/uploads/2025/07/Logos-gdm-2025-01-1.png" alt="GDM" style="height:36px; width:auto; display:block; margin-bottom:28px; opacity:.85;">
+            <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; color:#390323; margin-bottom:20px;">Conheça a GDM.</div>
+            <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.65; color:#5e3a4e; margin:0 0 14px; max-width:56ch;">A GDM é uma agência de marketing digital e comunicação integrada.</p>
+            <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.65; color:#5e3a4e; margin:0 0 14px; max-width:56ch;">A gente entende que a marca está no centro de tudo. Por isso, antes de falar em canais ou ferramentas, a gente entende o problema a ser resolvido. É o problema que define o caminho, não o contrário.</p>
+            <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.65; color:#5e3a4e; margin:0 0 20px; max-width:56ch;">Se quiser saber mais sobre o que fazemos, é por aqui.</p>
+            <a href="https://agenciagdm.com.br" target="_blank" style="font-family:'Inter',sans-serif; font-size:15px; color:#390323; text-decoration:underline;">agenciagdm.com.br</a>
+          </sc-if>
+        </div>
+
         <!-- footer actions -->
         <div class="mf-noprint" style="display:flex; flex-wrap:wrap; gap:14px; margin-top:40px; padding-top:26px; border-top:1px solid rgba(57,3,35,.1);">
           <button onClick="{{ doPrint }}" style="background:var(--accent,#f46624); color:#fff; border:none; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:.06em; text-transform:uppercase; padding:14px 26px; cursor:pointer;" style-hover="filter:brightness(.94)">Baixar diagnóstico (PDF)</button>
@@ -789,7 +811,8 @@ class Component extends DCLogic {
       labelStyle, inputStyle, submitStyle,
       leadDisabled: leadValid ? null : true,
       // result
-      profile, scorePct, ladder, compareProfiles,
+      const gdmCta = profileIndex >= 3 || (profileIndex === 2 && scorePct >= 30);
+      profile, scorePct, ladder, compareProfiles, gdmCta,
       cx, cy, rings, axisLines, dataPoly, dataDots, vertexBadges, radarFill, legend,
       alerts, hasAlerts: alerts.length > 0
     };
