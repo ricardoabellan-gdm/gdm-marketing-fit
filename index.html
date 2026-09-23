@@ -767,6 +767,9 @@ class Component extends DCLogic {
     });
     const dimensions = dimsOrder.map(n => ({ numLabel: '0' + n, name: this.dimMeta[n] }));
 
+    // ---- gdm fit block ----
+    const gdmCta = profileIndex >= 3 || (profileIndex === 2 && scorePct >= 30);
+
     // ---- reference table: all 5 profiles ----
     const compareProfiles = this.profileSummary.map((p, i) => {
       const isRec = i === profileIndex;
@@ -811,7 +814,6 @@ class Component extends DCLogic {
       labelStyle, inputStyle, submitStyle,
       leadDisabled: leadValid ? null : true,
       // result
-      const gdmCta = profileIndex >= 3 || (profileIndex === 2 && scorePct >= 30);
       profile, scorePct, ladder, compareProfiles, gdmCta,
       cx, cy, rings, axisLines, dataPoly, dataDots, vertexBadges, radarFill, legend,
       alerts, hasAlerts: alerts.length > 0
