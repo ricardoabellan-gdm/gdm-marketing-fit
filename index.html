@@ -123,7 +123,7 @@
         <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:clamp(28px,5vw,40px); line-height:1.05; text-transform:uppercase; letter-spacing:-.005em; color:#390323; margin:14px 0 0;">Seu diagnóstico<br>está pronto</h2>
         <p style="font-size:16px; color:#5e3a4e; margin:18px 0 30px; max-width:48ch;">Preencha seus dados para ver o resultado completo, com o perfil de parceiro recomendado e as orientações para o seu momento.</p>
 
-        <div style="display:flex; flex-direction:column; gap:18px; background:#fff; border:1px solid rgba(57,3,35,.1); border-radius:12px; padding:clamp(22px,4vw,32px);">
+        <div style="display:flex; flex-direction:column; gap:18px; background:transparent; border:none; border-radius:12px; padding:clamp(22px,4vw,32px);">
           <label style="display:flex; flex-direction:column; gap:7px;">
             <span style="{{ labelStyle }}">Nome</span>
             <input value="{{ lead.nome }}" onChange="{{ onNome }}" placeholder="Seu nome completo" style="{{ inputStyle }}" style-focus="border-color:var(--accent,#f46624)">
@@ -167,7 +167,7 @@
         </div>
 
         <!-- radar -->
-        <div style="background:#fff; border:1px solid rgba(57,3,35,.1); border-radius:14px; padding:clamp(20px,4vw,30px); margin-top:30px;">
+        <div style="background:transparent; border:none; border-radius:14px; padding:clamp(20px,4vw,30px); margin-top:30px;">
           <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#9a6a82; margin-bottom:8px;">Radar de maturidade</div>
           <div style="display:flex; flex-wrap:wrap; align-items:center; gap:clamp(16px,4vw,32px);">
             <svg viewBox="0 0 320 320" style="width:min(280px,100%); flex:0 0 auto; margin:0 auto; overflow:visible;">
@@ -270,7 +270,7 @@
 
 
         <!-- bloco GDM -->
-        <div style="margin-top:48px; padding:36px; background:rgba(57,3,35,.04); border-radius:12px; border:1px solid rgba(57,3,35,.1);">
+        <div style="margin-top:48px; padding:36px; background:transparent; border-radius:12px; border:none;">
           <sc-if value="{{ gdmCta }}">
             <img src="https://agenciagdm.com.br/wp-content/uploads/2025/07/Logos-gdm-2025-01-1.png" alt="GDM" style="height:36px; width:auto; display:block; margin-bottom:28px; opacity:.85;">
             <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; color:#390323; margin-bottom:20px;">Parece que a gente tem muito a conversar.</div>
