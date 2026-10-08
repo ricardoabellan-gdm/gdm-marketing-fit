@@ -529,6 +529,10 @@ class Component extends DCLogic {
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
     this.scrollToTop();
 
+    // ── Conversão (GTM / Google Ads) ────────────────────────────────────
+    // Avisa a página do site que um lead foi enviado. O GTM escuta esse aviso.
+    try { window.parent.postMessage({ type: 'marketing_fit_lead' }, 'https://agenciagdm.com.br'); } catch (e) {}
+
     // ── RD Station integration ──────────────────────────────────────────
     // Replace the value below with your RD Station Public API Key.
     // Found at: RD Station → Configurações → Integrações → API do RD Station
