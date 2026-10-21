@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "z18vtg76fr");
+</script>
 </head>
 <body>
 <x-dc>
@@ -497,7 +505,12 @@ class Component extends DCLogic {
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(e) {}
   };
 
-  start = () => { this.setState({ screen: 'questions', qIndex: 0 }); this.scrollToTop(); };
+  // ── Clarity: eventos de funil ─────────────────────────────────────────
+  track = (name) => {
+    try { if (window.clarity) window.clarity('event', name); } catch (e) {}
+  };
+
+  start = () => { this.track('quiz_iniciado'); this.setState({ screen: 'questions', qIndex: 0 }); this.scrollToTop(); };
 
   select = (qid, i) => {
     this.setState(s => ({ answers: { ...s.answers, [qid]: i } }), () => {
@@ -507,6 +520,12 @@ class Component extends DCLogic {
 
   next = () => {
     const act = this.getActive();
+    const cur = this.state.qIndex;
+    if (cur >= act.length - 1) {
+      this.track('quiz_concluido');
+    } else if (act[cur + 1].dim !== act[cur].dim) {
+      this.track('quiz_dimensao_' + act[cur + 1].dim);
+    }
     this.setState(s => {
       if (s.qIndex < act.length - 1) return { qIndex: s.qIndex + 1 };
       return { screen: 'lead' };
@@ -525,6 +544,7 @@ class Component extends DCLogic {
   setLead = (k, v) => this.setState(s => ({ lead: { ...s.lead, [k]: v } }));
 
   submitLead = () => {
+    this.track('lead_enviar_clique');
     this.setState({ screen: 'result' });
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
     this.scrollToTop();
@@ -586,8 +606,17 @@ class Component extends DCLogic {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(rdPayload)
-    }).catch(() => {
-      // Silently fail — o usuário nunca é interrompido
+    }).then((res) => {
+      // O usuário nunca é interrompido, mas o resultado fica registrado no Clarity
+      if (res.ok) {
+        this.track('rd_ok');
+      } else {
+        this.track('rd_erro_' + res.status);
+        try { console.warn('[Marketing Fit] RD Station respondeu', res.status); } catch (e) {}
+      }
+    }).catch((err) => {
+      this.track('rd_falha_rede');
+      try { console.warn('[Marketing Fit] Falha ao enviar para o RD Station', err); } catch (e) {}
     });
     // ───────────────────────────────────────────────────────────────────
   };
