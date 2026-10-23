@@ -4,14 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "z18vtg76fr");
-</script>
 </head>
 <body>
 <x-dc>
@@ -28,6 +20,8 @@
   @keyframes mf-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   @keyframes mf-fade{from{opacity:0}to{opacity:1}}
   @media print{.mf-noprint{display:none!important}}
+  .mf-top-start{display:none}
+  @media (max-width:640px){.mf-top-start{display:block}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -44,6 +38,10 @@
         <h1 style="font-family:var(--display-font,'Anton'),sans-serif; font-weight:400; font-size:clamp(48px,11vw,84px); line-height:.92; letter-spacing:-.02em; text-transform:uppercase; margin:18px 0 0; color:#390323;">Marketing<br>Fit</h1>
         <p style="font-family:'Oswald',sans-serif; font-weight:400; font-size:clamp(17px,2.6vw,21px); letter-spacing:.01em; color:#6b1947; margin:22px 0 0; max-width:32ch; line-height:1.35;">Descubra qual parceiro de marketing é ideal para o momento da sua empresa.</p>
         <p style="font-size:16px; color:#5e3a4e; margin:24px 0 0; max-width:56ch;">Nenhuma empresa fica sempre no mesmo lugar. Cada momento pede um tipo de parceiro diferente, e é comum errar essa escolha. Este diagnóstico ajuda a entender em que ponto a sua empresa está agora.</p>
+        <div class="mf-top-start" style="margin-top:26px;">
+          <button onClick="{{ start }}" style="display:inline-flex; align-items:center; gap:10px; background:var(--accent,#f46624); color:#fff; border:none; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; letter-spacing:.06em; text-transform:uppercase; padding:16px 30px; cursor:pointer; transition:transform .12s ease, filter .15s ease;" style-hover="filter:brightness(.94)" style-active="transform:scale(.98)">Começar avaliação <span style="font-size:18px; line-height:1;">→</span></button>
+          <div style="margin-top:14px; font-size:13px; color:#9a6a82; font-family:'Oswald',sans-serif; letter-spacing:.04em;">18 perguntas · 6 dimensões · cerca de 4 minutos</div>
+        </div>
 
         <!-- como funciona -->
         <div style="margin-top:36px; border-top:1px solid rgba(57,3,35,.14);">
@@ -505,12 +503,7 @@ class Component extends DCLogic {
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(e) {}
   };
 
-  // ── Clarity: eventos de funil ─────────────────────────────────────────
-  track = (name) => {
-    try { if (window.clarity) window.clarity('event', name); } catch (e) {}
-  };
-
-  start = () => { this.track('quiz_iniciado'); this.setState({ screen: 'questions', qIndex: 0 }); this.scrollToTop(); };
+  start = () => { this.setState({ screen: 'questions', qIndex: 0 }); this.scrollToTop(); };
 
   select = (qid, i) => {
     this.setState(s => ({ answers: { ...s.answers, [qid]: i } }), () => {
@@ -520,12 +513,6 @@ class Component extends DCLogic {
 
   next = () => {
     const act = this.getActive();
-    const cur = this.state.qIndex;
-    if (cur >= act.length - 1) {
-      this.track('quiz_concluido');
-    } else if (act[cur + 1].dim !== act[cur].dim) {
-      this.track('quiz_dimensao_' + act[cur + 1].dim);
-    }
     this.setState(s => {
       if (s.qIndex < act.length - 1) return { qIndex: s.qIndex + 1 };
       return { screen: 'lead' };
@@ -544,14 +531,9 @@ class Component extends DCLogic {
   setLead = (k, v) => this.setState(s => ({ lead: { ...s.lead, [k]: v } }));
 
   submitLead = () => {
-    this.track('lead_enviar_clique');
     this.setState({ screen: 'result' });
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
     this.scrollToTop();
-
-    // ── Conversão (GTM / Google Ads) ────────────────────────────────────
-    // Avisa a página do site que um lead foi enviado. O GTM escuta esse aviso.
-    try { window.parent.postMessage({ type: 'marketing_fit_lead' }, 'https://agenciagdm.com.br'); } catch (e) {}
 
     // ── RD Station integration ──────────────────────────────────────────
     // Replace the value below with your RD Station Public API Key.
@@ -606,17 +588,8 @@ class Component extends DCLogic {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(rdPayload)
-    }).then((res) => {
-      // O usuário nunca é interrompido, mas o resultado fica registrado no Clarity
-      if (res.ok) {
-        this.track('rd_ok');
-      } else {
-        this.track('rd_erro_' + res.status);
-        try { console.warn('[Marketing Fit] RD Station respondeu', res.status); } catch (e) {}
-      }
-    }).catch((err) => {
-      this.track('rd_falha_rede');
-      try { console.warn('[Marketing Fit] Falha ao enviar para o RD Station', err); } catch (e) {}
+    }).catch(() => {
+      // Silently fail — o usuário nunca é interrompido
     });
     // ───────────────────────────────────────────────────────────────────
   };
